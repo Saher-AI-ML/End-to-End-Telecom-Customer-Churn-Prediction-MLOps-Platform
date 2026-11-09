@@ -1,0 +1,51 @@
+# CI = "continuous integration": GitHub runs these checks automatically on every push.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # Job 1: check the code and run the tests
+  test:
+    runs-on: ubuntu-latest          # GitHub gives you a fresh Linux machine each time
+    steps:
+      - name: Download your repo onto the machine
+        uses: actions/checkout@v5
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"    # same version as the Dockerfile
+          cache: pip                # reuse downloaded libraries on the next run
+
+      - name: Install libraries
+        run: pip install -r requirements-dev.txt
+
+      - name: Check code (ruff)
+        run: ruff check .
+
+      - name: Run tests (pytest)
+        run: pytest -v
+
+  # Job 2: build the Docker image and check the container really starts
+  docker:
+    runs-on: ubuntu-latest
+    needs: test                     # only runs if the tests passed
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Build the image
+        run: docker build -t churn-app .
+
+      - name: Start the container and check /health
+        run: |
+          docker run -d -p 8000:8000 --name churn-api churn-app
+          for i in $(seq 1 20); do
+            curl -fs http://localhost:8000/health && exit 0
+            sleep 2
+          done
+          echo "The API never became healthy. Container logs:"
+          docker logs churn-api
+          exit 1

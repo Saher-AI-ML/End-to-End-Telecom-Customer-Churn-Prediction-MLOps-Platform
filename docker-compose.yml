@@ -1,0 +1,27 @@
+name: churn-project
+
+services:
+  # The model behind an HTTP endpoint
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    healthcheck:   # Docker calls /health until it answers, so we know the API is really ready
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # The web page people use. It talks to the API.
+  dashboard:
+    build: .
+    command: streamlit run app/dashboard.py --server.port 8501 --server.address 0.0.0.0 --server.headless true --browser.gatherUsageStats false
+    ports:
+      - "8501:8501"
+    environment:
+      # Inside Docker, "localhost" means the container itself, so we use the service name "api"
+      API_URL: http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy   # start the dashboard only after the API is healthy

@@ -1,0 +1,16 @@
+# Virtual environments (huge, everyone recreates them with pip install)
+venv/
+.venv/
+ 
+# Python / tool caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+ 
+# Raw data stays out of GitHub (add a download script or describe it in the README instead)
+data/
+ 
+# models/ is NOT ignored on purpose: CI and the Docker build need the small model files.
+ 

@@ -1,0 +1,18 @@
+# Keep these OUT of the image build (smaller, faster, safer).
+# models/ and requirements.txt must NOT be listed here: the image needs them.
+.venv
+venv
+.git
+.gitignore
+__pycache__
+*.pyc
+.ipynb_checkpoints
+notebooks
+data
+src
+tests
+docs
+*.md
+Dockerfile
+docker-compose.yml
+.dockerignore

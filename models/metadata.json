@@ -1,0 +1,114 @@
+{
+  "model_name": "Random Forest",
+  "target": "churned",
+  "id_column_not_a_feature": "customer_id",
+  "features": {
+    "numeric": [
+      "monthly_bill_egp",
+      "tenure_months",
+      "complaint_count",
+      "downtime_hours_monthly"
+    ],
+    "categorical": [
+      "governorate",
+      "customer_type",
+      "subscription_plan",
+      "payment_method"
+    ]
+  },
+  "feature_order": [
+    "monthly_bill_egp",
+    "tenure_months",
+    "complaint_count",
+    "downtime_hours_monthly",
+    "governorate",
+    "customer_type",
+    "subscription_plan",
+    "payment_method"
+  ],
+  "categories": {
+    "governorate": [
+      "Alexandria",
+      "Aswan",
+      "Asyut",
+      "Beheira",
+      "Beni Suef",
+      "Cairo",
+      "Dakahlia",
+      "Damietta",
+      "Faiyum",
+      "Gharbia",
+      "Giza",
+      "Ismailia",
+      "Kafr El Sheikh",
+      "Luxor",
+      "Minya",
+      "Monufia",
+      "Port Said",
+      "Qalyubia",
+      "Qena",
+      "Sharqia",
+      "Sohag",
+      "Suez"
+    ],
+    "customer_type": [
+      "Business",
+      "Government",
+      "Individual"
+    ],
+    "subscription_plan": [
+      "WE Basic 10Mbps",
+      "WE Business 500Mbps",
+      "WE Plus 40Mbps",
+      "WE Pro 80Mbps",
+      "WE Standard 20Mbps",
+      "WE Ultra 200Mbps"
+    ],
+    "payment_method": [
+      "Cash at Branch",
+      "Credit Card",
+      "Direct Debit",
+      "InstaPay",
+      "Vodafone Cash"
+    ]
+  },
+  "numeric_ranges": {
+    "monthly_bill_egp": {
+      "min": 166.75,
+      "max": 1683.62
+    },
+    "tenure_months": {
+      "min": 18.0,
+      "max": 85.0
+    },
+    "complaint_count": {
+      "min": 0.0,
+      "max": 9.0
+    },
+    "downtime_hours_monthly": {
+      "min": 0.0,
+      "max": 15.0
+    }
+  },
+  "threshold": 0.51,
+  "best_params": {
+    "model__n_estimators": 200,
+    "model__min_samples_leaf": 1,
+    "model__max_features": "sqrt",
+    "model__max_depth": null,
+    "model__class_weight": "balanced"
+  },
+  "random_state": 42,
+  "n_train": 7189,
+  "n_test": 1798,
+  "churn_rate_train": 0.4079844206426485,
+  "trained_at_utc": "2026-11-08T14:57:22+00:00",
+  "library_versions": {
+    "python": "3.14.6",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "pandas": "3.0.5",
+    "numpy": "2.5.3",
+    "joblib": "1.6.0"
+  }
+}
