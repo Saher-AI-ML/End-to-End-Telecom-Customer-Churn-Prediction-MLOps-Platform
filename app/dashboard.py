@@ -17,7 +17,8 @@ st.set_page_config(page_title="WE Churn Predictor")
 st.title("WE Customer Churn Predictor")
 
 
-@st.cache_data(ttl=60)  # remember the answer for 60 seconds so the page does not call the API on every click
+# remember the answer for 60 seconds so the page does not call the API on every click
+@st.cache_data(ttl=60)
 def get_json(path):
     response = requests.get(f"{API_URL}{path}", timeout=10)
     response.raise_for_status()
@@ -28,7 +29,8 @@ def get_json(path):
 try:
     info = get_json("/model-info")
 except requests.exceptions.RequestException:
-    st.error(f"Cannot reach the API at {API_URL}. Start it first with: uvicorn api.main:app --reload")
+    st.error(
+        f"Cannot reach the API at {API_URL}. Start it first with: uvicorn api.main:app --reload")
     st.stop()
 
 categories = info["categories"]
@@ -81,7 +83,8 @@ with tab_predict:
             "complaint_count": complaints, "downtime_hours_monthly": downtime,
         }
         try:
-            response = requests.post(f"{API_URL}/predict", json=payload, timeout=10)
+            response = requests.post(
+                f"{API_URL}/predict", json=payload, timeout=10)
         except requests.exceptions.RequestException:
             st.error("The API did not respond. Is it still running?")
         else:
@@ -128,4 +131,3 @@ with tab_performance:
     st.dataframe(comparison.round(3))
 
 st.divider()
-st.caption("The training data is synthetic, so these predictions and scores do not describe real customers.")
