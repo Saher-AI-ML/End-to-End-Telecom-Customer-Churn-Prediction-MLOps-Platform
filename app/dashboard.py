@@ -97,8 +97,7 @@ with tab_predict:
                     st.error("Likely to churn")
                 else:
                     st.success("Likely to stay")
-                st.caption(f"A customer is flagged as likely to churn when the probability is "
-                           f"at least {result['threshold']:.1%}.")
+
             else:
                 st.error("The API rejected this input.")
                 st.json(response.json())
