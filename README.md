@@ -1,6 +1,7 @@
 # Telecom Customer Churn Prediction
 
-![CI](https://github.com/USERNAME/REPO/actions/workflows/ci.yml/badge.svg)
+<img width="1138" height="817" alt="image" src="https://github.com/user-attachments/assets/ab6fdcbb-0c01-4020-8ab6-de76ab10bfc8" />
+
 
 An end-to-end machine learning service that predicts the probability that a telecom customer will churn. A leakage-safe scikit-learn / XGBoost pipeline is served through a **FastAPI** REST API, explored through a **Streamlit** dashboard, packaged with **Docker Compose**, and verified by **pytest** and **GitHub Actions** CI.
 
